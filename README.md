@@ -41,48 +41,48 @@ form表单（表单Name以及Id需要对应实体类的属性，如需使用该�
                     </form>
 
 前端代码（serializeString需要特定方法，LZ会上传更新该js函数）：
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    contentType: "application/json", //注意：WebMethod()必须加这项，否则客户端数据不会传到服务端
-                    data: JSON.stringify($("form").serializeString()),//注意：data参数可以是string个int类型
-                    url: "/Views/Account/Login.aspx/Login",//模拟web服务，提交到方法
-                    // 可选的 async:false,阻塞的异步就是同步
-                    beforeSend: function () {
-                        // do something.
-                        // 一般是禁用按钮等防止用户重复提交
-                        $("#denglu").attr({ disabled: "disabled" });
-                        // 或者是显示loading图片
-                    },
-                    success: function (data) {
-                        $("#denglu").removeAttr("disabled");
-                        console.log(data);
-                        var rurl = '<%= Request["rurl"] %>';
-                        if (rurl) {
-                            window.location.href = rurl;
-                        }
-                        else {
-                            window.location.href = "/";
-                        }
 
-                        // 服务端可以直接返回Model，也可以返回序列化之后的字符串，如果需要反序列化：string json = JSON.parse(data.d);
-                        // 有时候需要嵌套调用ajax请求，也是可以的
-                    },
-                    complete: function () {
-                        //do something.
-                        $("#btnClick").removeAttr("disabled");
-                        // 隐藏loading图片
-                    },
-                    error: function (data) {
-                        $("#denglu").removeAttr("disabled");
-                        console.log(data);
-                        alert("error: " + data.d);
-                    }
-                });
-
+/////////////////
+ $.ajax({
+     type: "post",
+     dataType: "json",
+     contentType: "application/json", //注意：WebMethod()必须加这项，否则客户端数据不会传到服务端
+     data: JSON.stringify($("form").serializeString()),//注意：data参数可以是string个int类型
+     url: "/Views/Account/Login.aspx/Login",//模拟web服务，提交到方法
+     // 可选的 async:false,阻塞的异步就是同步
+     beforeSend: function () {
+         // do something.
+         // 一般是禁用按钮等防止用户重复提交
+         $("#denglu").attr({ disabled: "disabled" });
+         // 或者是显示loading图片
+     },
+     success: function (data) {
+         $("#denglu").removeAttr("disabled");
+         console.log(data);
+         var rurl = '<%= Request["rurl"] %>';
+         if (rurl) {
+             window.location.href = rurl;
+         }
+         else {
+             window.location.href = "/";
+         }
+         // 服务端可以直接返回Model，也可以返回序列化之后的字符串，如果需要反序列化：string json = JSON.parse(data.d);
+         // 有时候需要嵌套调用ajax请求，也是可以的
+     },
+     complete: function () {
+         //do something.
+         $("#btnClick").removeAttr("disabled");
+         // 隐藏loading图片
+     },
+     error: function (data) {
+         $("#denglu").removeAttr("disabled");
+         console.log(data);
+         alert("error: " + data.d);
+     }
+ });
 
 后台调用对应的方法：
-
+///////////////
     [WebMethod(EnableSession = true)]
     public static string Login(string postParams)
     {
