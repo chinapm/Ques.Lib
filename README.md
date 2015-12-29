@@ -5,44 +5,43 @@
 主要内容是Mapping类中的两个静态方法。
 
 form表单（表单Name以及Id需要对应实体类的属性，如需使用该工具进行绑定，请给input加入runat="server"）：
-                    <form class="form-horizontal m_t_20p" role="form">
-                        <div class="form-group">
-                            <label for="firstname" class="col-sm-2 control-label">用户名</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="LoginName" name="LoginName"
-                                    placeholder="请输入用户名">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">密码</label>
-                            <div class="col-sm-10">
-                                <input type="password" class="form-control" id="Password" name="Password"
-                                    placeholder="请输密码">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" />
-                                        请记住我
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <a id="denglu" href="#" class="btn bg_c_b c_w b_r_40p" role="button">登录
-                                </a>
-                                <a href="/Regist" class="btn bg_c_gr c_w b_r_40p" role="button">注册
-                                </a>
-                            </div>
-                        </div>
-                    </form>
 
+    <form class="form-horizontal m_t_20p" role="form">
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">用户名</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="LoginName" name="LoginName"
+                    placeholder="请输入用户名">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastname" class="col-sm-2 control-label">密码</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="Password" name="Password"
+                    placeholder="请输密码">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" />
+                        请记住我
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <a id="denglu" href="#" class="btn bg_c_b c_w b_r_40p" role="button">登录
+                </a>
+                <a href="/Regist" class="btn bg_c_gr c_w b_r_40p" role="button">注册
+                </a>
+            </div>
+        </div>
+    </form>
 前端代码（serializeString需要特定方法，LZ会上传更新该js函数）：
 
-/////////////////
  $.ajax({
      type: "post",
      dataType: "json",
@@ -82,7 +81,7 @@ form表单（表单Name以及Id需要对应实体类的属性，如需使用该�
  });
 
 后台调用对应的方法：
-///////////////
+
     [WebMethod(EnableSession = true)]
     public static string Login(string postParams)
     {
@@ -91,7 +90,6 @@ form表单（表单Name以及Id需要对应实体类的属性，如需使用该�
         {
             AccountInfoBLL accountBLL = new AccountInfoBLL();
             AccountInfo model = accountBLL.GetByLoginName(jsonPH.GetParamByKey("LoginName"));
-
             if (model.Password.Equals(jsonPH.GetParamByKey("Password")))
             {
                 SetCurrentLoginUser(model);
